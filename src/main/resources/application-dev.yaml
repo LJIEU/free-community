@@ -1,0 +1,116 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 1000
+      min-spare: 10
+  port: 8888
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: free-community
+  messages:
+    basename: i18n.login # 国际化资源文件
+  datasource:
+    dynamic:
+      primary: admin
+      strict: false
+      datasource:
+        admin:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/freecommunity_admin?serverTimezone=GMT%2B8
+          username: root
+          password: 123456
+        app:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/freecommunity_app?serverTimezone=GMT%2B8
+          username: root
+          password: 123456
+
+  #    admin:
+  #      driver-class-name: com.mysql.cj.jdbc.Driver
+  #      #    driver-class-name: com.mysql.jdbc.Driver
+  #      jdbc-url: jdbc:mysql://localhost:3306/freecommunity_admin?serverTimezone=GMT%2B8
+  #      username: root
+  #      password: 123456
+  #    app:
+  #      driver-class-name: com.mysql.cj.jdbc.Driver
+  #      #    driver-class-name: com.mysql.jdbc.Driver
+  #      jdbc-url: jdbc:mysql://localhost:3306/freecommunity_app?serverTimezone=GMT%2B8
+  #      username: root
+  #      password: 123456
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # swagger2 在 springboot 2.6.x 之后配置这个匹配器 才有用
+  # redis 配置 redis-cli -h 127.0.0.1 -p 6379 -a lj1234
+  redis:
+    open: true # 是否开启 Redis
+    host: 127.0.0.1
+    port: 6379
+    password: lj1234
+    lettuce: # lettuce 连接池配置
+      pool:
+        min-idle: 100 # 最小空闲连接
+        max-idle: 1 # 最大空闲连接
+        max-active: 1000  # 最大连接数
+        max-wait: -1 # 最大阻塞等待时间（负数表示没有限制）
+#  security:
+#    user:
+#      name: user
+#      password: user
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印执行SQL日志
+    cache-enabled: true # 开启缓存
+  #  mapper-locations: classpath*:com/jxjie/top/mapper/**/*.xml
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    #数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+#      id-type: assign_id
+      id-type: auto
+      logic-delete-value: 1 #逻辑已删除
+      logic-not-delete-value: 0 # 逻辑未删除
+#      logic-delete-field: is_delete
+    banner: false
+
+# https://www.aliyun.com/
+alibaba:
+  oss:
+    accesskey: you accesskey
+    secretkey: secretkey
+    endpoint: you endpoint
+    bucketName: you bucketName
+
+
+
+# 图片存放地址
+picture:
+  show: /show/** # 通过show来进行URL访问图片 ==》 http://localhost:8888/show/01.gif
+  up-path: C:/Users/lj147/Desktop/free-community/图片文件/  # 图片在本地存放的文件夹
+
+
+# 自定义 jwt key https://jwt.io/#debugger-io
+jwt:
+  tokenHeader: JIE # JWT存储的请求头
+  secret: ukc8BDbRigUDaY6pZFfWus2jZWLPHOJIELIUdjfdsaljflsdfjlsdjfsldfjsldfjlsdfsdf # JWT 加密解密使用的密钥
+  expiration: 86400 # JWT 超期时间(60*60*24)
+  tokenHead: LIU # JWT 负载中拿到的开头
+debug: true
+
+# IP 定位 https://lbsyun.baidu.com/index.php?title=%E9%A6%96%E9%A1%B5
+baidu:
+  ak: you baiduak
+
+# 发送短信 https://unisms.apistd.com/console/
+uni:
+  accessKeyId: you uni accessKeyId
+  accessKeySecret:
