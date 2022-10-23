@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjxjie.top.modules.sys.dao.SysUserTokenDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cjxjie.top.modules.sys.entity.SysUserTokenEntity" id="sysUserTokenMap">
+        <result property="userId" column="user_id"/>
+        <result property="token" column="token"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--查询Token是否存在-->
+    <select id="queryByToken" resultType="com.cjxjie.top.modules.sys.entity.SysUserTokenEntity">
+        select * from sys_user_token where token = #{value}
+    </select>
+
+
+</mapper>

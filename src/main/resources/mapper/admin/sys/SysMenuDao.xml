@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjxjie.top.modules.sys.dao.SysMenuDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cjxjie.top.modules.sys.entity.SysMenuEntity" id="sysMenuMap">
+        <result property="menuId" column="menu_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="perms" column="perms"/>
+        <result property="type" column="type"/>
+        <result property="icon" column="icon"/>
+        <result property="orderNum" column="order_num"/>
+    </resultMap>
+    <select id="queryNotButtonList" resultType="com.cjxjie.top.modules.sys.entity.SysMenuEntity">
+        -- 查询菜单【type ！= 2】 并按照 order_num 升序排序
+        SELECT * FROM sys_menu WHERE type != 2 ORDER BY order_num ASC;
+    </select>
+    <select id="queryListParentId" resultType="com.cjxjie.top.modules.sys.entity.SysMenuEntity">
+        SELECT * FROM sys_menu WHERE parent_id = #{menuId} ORDER BY order_num ASC;
+    </select>
+
+
+</mapper>

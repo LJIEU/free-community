@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjxjie.top.modules.app.dao.UserDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cjxjie.top.modules.app.entity.UserEntity" id="userMap">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="salt" column="salt"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="avatar" column="avatar"/>
+        <result property="sex" column="sex"/>
+        <result property="signature" column="signature"/>
+        <result property="address" column="address"/>
+        <result property="profession" column="profession"/>
+        <result property="cover" column="cover"/>
+        <result property="state" column="state"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+</mapper>

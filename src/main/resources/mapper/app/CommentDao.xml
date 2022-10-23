@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjxjie.top.modules.app.dao.CommentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cjxjie.top.modules.app.entity.CommentEntity" id="commentMap">
+        <result property="commentId" column="comment_id"/>
+        <result property="content" column="content"/>
+        <result property="likes" column="likes"/>
+        <result property="ip" column="ip"/>
+        <result property="address" column="address"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+
+</mapper>

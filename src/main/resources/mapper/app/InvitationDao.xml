@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjxjie.top.modules.app.dao.InvitationDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cjxjie.top.modules.app.entity.InvitationEntity" id="invitationMap">
+        <result property="invitationId" column="invitation_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="document" column="document"/>
+        <result property="pageviews" column="pageviews"/>
+        <result property="comments" column="comments"/>
+        <result property="likes" column="likes"/>
+        <result property="topic" column="topic"/>
+        <result property="sort" column="sort"/>
+        <result property="state" column="state"/>
+        <result property="address" column="address"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="cover" column="cover"/>
+    </resultMap>
+    <select id="getTopicList" resultType="java.lang.String">
+        select topic from invitation;
+    </select>
+
+
+</mapper>
