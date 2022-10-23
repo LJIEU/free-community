@@ -1,0 +1,48 @@
+{
+  "name": "freecommunity-vue-app",
+  "version": "1.0.0",
+  "description": "freecommunity-vue-app客户端界面",
+  "author": "2353471003@qq.com",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@types/highlight.js": "^10.1.0",
+    "axios": "^0.24.0",
+    "core-js": "3.6.5",
+    "crypto-js": "^4.1.1",
+    "element-ui": "2.13.2",
+    "github-markdown-css": "^5.1.0",
+    "highlight.js": "^11.6.0",
+    "image-conversion": "^2.1.1",
+    "markdown-it": "^13.0.1",
+    "markdown-it-emoji": "^2.0.2",
+    "marked": "^4.1.0",
+    "mavon-editor": "^2.10.4",
+    "moment": "2.27.0",
+    "nprogress": "0.2.0",
+    "sanitize-html": "2.3.3",
+    "semantic-ui-css": "2.4.1",
+    "svg-sprite-loader": "3.7.3",
+    "v-viewer": "1.5.1",
+    "vue": "2.6.11",
+    "vue-markdown": "^2.2.4",
+    "vue-puzzle-vcode": "^1.1.9",
+    "vue-router": "3.3.4",
+    "vuex": "3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.4.0",
+    "@vue/cli-plugin-router": "4.4.0",
+    "@vue/cli-plugin-vuex": "4.4.0",
+    "@vue/cli-service": "4.4.0",
+    "vue-template-compiler": "2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
