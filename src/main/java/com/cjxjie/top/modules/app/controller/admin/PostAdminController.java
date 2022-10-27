@@ -5,6 +5,7 @@ import com.cjxjie.top.common.utils.R;
 import com.cjxjie.top.modules.app.entity.InvitationEntity;
 import com.cjxjie.top.modules.app.service.InvitationService;
 import com.cjxjie.top.modules.app.vo.UserInvitationVo;
+import com.cjxjie.top.modules.sys.redis.SysRedis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j;
@@ -26,6 +27,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("app/admin/invitation")
 public class PostAdminController {
+
     @Autowired
     private InvitationService invitationService;
 
@@ -42,6 +44,7 @@ public class PostAdminController {
 
         // 插入新数据
         page.setList(list);
+//        sysRedis.saveOrUpdate();
         return R.ok().put("page", page);
     }
 

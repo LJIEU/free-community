@@ -3,6 +3,8 @@ package com.cjxjie.top.app;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,5 +60,12 @@ public class IpTest {
         System.out.println("X:"+point.getString("x"));
         System.out.println("Y:"+point.getString("y"));
 
+    }
+
+    @Test
+    public void longJson(){
+        Long[] longs = {1L, 2L, 3L};
+        String s = new Gson().toJson(longs);
+        System.out.println(s);
     }
 }

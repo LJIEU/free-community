@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cjxjie.top.modules.app.dao.CodeDao;
 import com.cjxjie.top.modules.app.entity.CodeEntity;
 import com.cjxjie.top.modules.app.service.CodeService;
+import com.cjxjie.top.modules.app.utils.AppRedis;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +20,10 @@ import org.springframework.stereotype.Service;
 @Service("codeService")
 public class CodeServiceImpl extends ServiceImpl<CodeDao, CodeEntity> implements CodeService {
 
+    @Lazy
+    @Autowired
+    private AppRedis appRedis;
+
     /**
      * 验证验证码是否有效
      *
@@ -24,7 +31,11 @@ public class CodeServiceImpl extends ServiceImpl<CodeDao, CodeEntity> implements
      */
     @Override
     public Boolean verifiCode(String code, String phone) {
-        // 查询该号码是否存在验证码
+        String key = appRedis.getKey(phone);
+        // 查看是否相等
+        return key.equals(code);
+
+/*        // 查询该号码是否存在验证码
         CodeEntity codeEntity = this.getOne(new QueryWrapper<CodeEntity>()
                 .eq("phone", phone));
 
@@ -34,6 +45,6 @@ public class CodeServiceImpl extends ServiceImpl<CodeDao, CodeEntity> implements
 
 
         // 并且时间有效
-        return codeEntity.getCode().equals(code) && codeEntity.getOverTime().getTime() >= System.currentTimeMillis();
+        return codeEntity.getCode().equals(code) && codeEntity.getOverTime().getTime() >= System.currentTimeMillis();*/
     }
 }

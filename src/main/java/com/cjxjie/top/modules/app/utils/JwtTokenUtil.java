@@ -1,12 +1,14 @@
 package com.cjxjie.top.modules.app.utils;
 
 import com.cjxjie.top.common.exception.CustomizeException;
+import com.cjxjie.top.common.utils.RedisUtils;
 import com.cjxjie.top.modules.app.form.JwtForm;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +38,7 @@ public class JwtTokenUtil {
 
     @Value("${jwt.expiration}") // 超时时间
     private Long expiration/* = jwtForm.getExpiration()*/;
+
 
 
     // 密钥

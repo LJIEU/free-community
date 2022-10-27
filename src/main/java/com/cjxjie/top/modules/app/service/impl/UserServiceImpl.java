@@ -7,6 +7,7 @@ import com.cjxjie.top.common.utils.DateUtils;
 import com.cjxjie.top.common.utils.R;
 import com.cjxjie.top.modules.app.entity.*;
 import com.cjxjie.top.modules.app.service.*;
+import com.cjxjie.top.modules.app.utils.AppRedis;
 import com.cjxjie.top.modules.app.utils.JwtTokenUtil;
 import com.cjxjie.top.modules.app.vo.CommentAndUserVo;
 import com.cjxjie.top.modules.app.vo.RegisterVo;
@@ -67,8 +68,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Lazy
+    @Autowired
+    private AppRedis appRedis;
+
     @Value(value = "${jwt.tokenHeader}")
     private String tokenHeader;
+
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -157,7 +163,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
     /**
      * 根据 评论ID 查找父评论 用户信息
-     *
      */
     @Override
     public UserEntity getParent(Long commentId) {
@@ -211,7 +216,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
         // 将验证码写入数据库中
         CodeEntity codeEntity = new CodeEntity();
 
-        CodeEntity temp = codeService.getOne(new QueryWrapper<CodeEntity>().eq("phone", phone));
+        if (appRedis.getKey(phone) == null || Objects.equals(appRedis.getKey(phone), "")) {
+            // 存在就删除
+            appRedis.removeKey(phone);
+        }
+        // 再写入 3分钟 缓存
+        appRedis.saveOrUpdate(phone, code, 180L);
+/*        CodeEntity temp = codeService.getOne(new QueryWrapper<CodeEntity>().eq("phone", phone));
         if (temp != null) {
             // 删除存在的验证码
             codeService.remove(new QueryWrapper<CodeEntity>().eq("phone", phone));
@@ -221,7 +232,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
         codeEntity.setPhone(phone);
         codeEntity.setCode(code.toString());
         codeEntity.setOverTime(DateUtils.addDateMinutes(new Date(), 3));
-        codeService.save(codeEntity);
+        codeService.save(codeEntity);*/
 
 /*        } catch (UniException e) {
             System.out.println("Error: " + e);
@@ -257,7 +268,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
     /**
      * 获取用户基本信息
-     *
      */
     private UserInfoVo getUserInfoVo(CommentEntity v) {
         UserEntity user = getUser(v);

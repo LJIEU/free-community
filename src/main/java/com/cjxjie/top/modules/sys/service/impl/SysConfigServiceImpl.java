@@ -49,7 +49,6 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
     }
 
     @Override
-    //@Transactional(rollbackFor = Exception.class, transactionManager = "adminTransactionManager")
     @Transactional(rollbackFor = Exception.class)
     public void update(SysConfigEntity config) {
         this.updateById(config);
@@ -57,18 +56,14 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
     }
 
     @Override
-   // @Transactional(rollbackFor = Exception.class, transactionManager = "adminTransactionManager")
     @Transactional(rollbackFor = Exception.class)
-
     public void updateValueByKey(String key, String value) {
         baseMapper.updateValueByKey(key, value);
         sysRedis.delete(key);
     }
 
     @Override
-   // @Transactional(rollbackFor = Exception.class, transactionManager = "adminTransactionManager")
     @Transactional(rollbackFor = Exception.class)
-
     public void deleteBatch(Long[] ids) {
         for (Long id : ids) {
             SysConfigEntity config = this.getById(id);
@@ -78,7 +73,6 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigDao, SysConfigEnt
         this.removeByIds(Arrays.asList(ids));
     }
 
-//    @Override
     public String getValue(String key) {
         SysConfigEntity config = sysRedis.get(key);
         if (config == null) {

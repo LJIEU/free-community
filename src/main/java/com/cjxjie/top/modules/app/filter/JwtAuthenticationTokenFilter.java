@@ -1,9 +1,11 @@
 package com.cjxjie.top.modules.app.filter;
 
+import com.cjxjie.top.modules.app.utils.AppRedis;
 import com.cjxjie.top.modules.app.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +37,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Value(value = "${jwt.tokenHeader}")
     private String tokenHeader;
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.warn("权限认证~~~");
@@ -42,7 +45,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 //        String tokenHeader = request.getHeader("tokenHeader");
 
         log.warn(jwtToken + "\t" + tokenHeader);
-//        if (this.tokenHeader.equals(tokenHeader)) {
         String username = jwtTokenUtil.getUserNameFromToken(jwtToken);
         log.warn("用户信息:" + username);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

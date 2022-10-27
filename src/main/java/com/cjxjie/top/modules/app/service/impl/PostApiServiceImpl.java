@@ -7,6 +7,7 @@ import com.cjxjie.top.modules.app.entity.InvitationEntity;
 import com.cjxjie.top.modules.app.entity.UserEntity;
 import com.cjxjie.top.modules.app.entity.UserInvitationEntity;
 import com.cjxjie.top.modules.app.service.PostApiService;
+import com.cjxjie.top.modules.app.utils.AppRedis;
 import com.cjxjie.top.modules.app.vo.UserInvitationVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +33,7 @@ public class PostApiServiceImpl implements PostApiService {
     @Lazy
     @Autowired
     private UserDao userDao;
+
 
     @Override
     public List<UserInvitationVo> getUserAndPostInfo(List<InvitationEntity> postList) {

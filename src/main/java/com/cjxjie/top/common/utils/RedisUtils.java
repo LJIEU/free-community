@@ -22,7 +22,7 @@ public class RedisUtils {
     private ValueOperations<String,String> valueOperations;
 
     /**
-     * 默认过期时长，单位：秒
+     * 默认过期时长，单位：秒  1天
      */
     public final static long DEFAULT_EXPIRE = 60 * 60 * 24;
     /**
@@ -31,6 +31,12 @@ public class RedisUtils {
     public final static long NOT_EXPIRE = -1;
     private final static Gson gson = new Gson();
 
+    /**
+     * 保存数据
+     * @param key      键
+     * @param value    值  [将数据转JSON保存]
+     * @param expire   到期时间
+     */
     public void set(String key, Object value, long expire) {
         valueOperations.set(key, toJson(value));
         if (expire != NOT_EXPIRE) {
