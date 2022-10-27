@@ -33,7 +33,12 @@ public class CodeServiceImpl extends ServiceImpl<CodeDao, CodeEntity> implements
     public Boolean verifiCode(String code, String phone) {
         String key = appRedis.getKey(phone);
         // 查看是否相等
-        return key.equals(code);
+        if (key.equals(code)) {
+            // 如果相等 删除验证码 返回 验证成功
+            appRedis.removeKey(phone);
+            return true;
+        }
+        return false;
 
 /*        // 查询该号码是否存在验证码
         CodeEntity codeEntity = this.getOne(new QueryWrapper<CodeEntity>()
