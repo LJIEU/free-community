@@ -75,9 +75,7 @@ public class InvitationServiceImpl extends ServiceImpl<InvitationDao, Invitation
 
     @Override
     public List<InvitationEntity> getPostList() {
-        List<InvitationEntity> selectList =
-                baseMapper.selectList(new QueryWrapper<InvitationEntity>().eq("state", 1));
-        return selectList;
+        return  baseMapper.selectList(new QueryWrapper<InvitationEntity>().eq("state", 1));
     }
 
     @Override

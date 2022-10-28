@@ -2,6 +2,7 @@ package com.cjxjie.top.modules.app.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cjxjie.top.modules.app.entity.CommentLikeEntity;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

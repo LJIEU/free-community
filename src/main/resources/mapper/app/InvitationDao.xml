@@ -3,7 +3,7 @@
 
 <mapper namespace="com.cjxjie.top.modules.app.dao.InvitationDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.cjxjie.top.modules.app.entity.InvitationEntity" id="invitationMap">
         <result property="invitationId" column="invitation_id"/>
         <result property="title" column="title"/>
@@ -21,8 +21,13 @@
         <result property="cover" column="cover"/>
     </resultMap>
     <select id="getTopicList" resultType="java.lang.String">
-        select topic from invitation;
+        select topic
+        from invitation;
     </select>
+
+    <!--flushInterval==> 刷新间隔 单位毫秒-->
+<!--    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true">-->
+<!--    </cache>-->
 
 
 </mapper>

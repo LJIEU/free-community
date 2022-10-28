@@ -3,6 +3,7 @@ package com.cjxjie.top.modules.app.dao;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.cjxjie.top.modules.app.entity.UserEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

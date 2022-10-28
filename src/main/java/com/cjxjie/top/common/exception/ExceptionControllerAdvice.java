@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @Date: 2022/7/10 20:40
  */
 @Slf4j
-@ControllerAdvice(basePackages = "com.cjxjie.top")
-@RestControllerAdvice // 统一异常处理
+//@ControllerAdvice(basePackages = "com.cjxjie.top")
+//@RestControllerAdvice // 统一异常处理
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = Exception.class)

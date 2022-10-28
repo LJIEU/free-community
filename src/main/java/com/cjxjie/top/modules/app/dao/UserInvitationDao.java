@@ -4,6 +4,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.cjxjie.top.modules.app.entity.UserInvitationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cjxjie.top.modules.app.vo.UserInvitationVo;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,9 +17,8 @@ import java.util.List;
  * @date 2022-09-18 14:47:45
  */
 @Mapper
+@CacheNamespace
 @DS(value = "app")
 public interface UserInvitationDao extends BaseMapper<UserInvitationEntity> {
-
     List<UserInvitationVo> getUserAndPost();
-
 }
