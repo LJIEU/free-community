@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.io.Serial;
 
@@ -23,6 +24,7 @@ import java.io.Serial;
  * @since 2022-09-18 14:47:45
  */
 @Data
+@Accessors(chain = true)
 @ToString
 @TableName("user")
 public class UserEntity implements Serializable {
