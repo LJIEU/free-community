@@ -1,6 +1,9 @@
 package com.cjxjie.top.modules.es.docment;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -15,7 +18,9 @@ import java.util.List;
  * @version 1.0
  * @since 2022/10/29 11:48
  */
-@Data
+@Getter
+@Setter
+@ToString
 @Document(indexName = "user_post")
 public class ESUserAndPost implements Serializable {
     @Serial

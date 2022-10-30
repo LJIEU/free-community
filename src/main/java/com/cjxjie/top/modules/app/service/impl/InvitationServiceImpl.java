@@ -7,6 +7,7 @@ import com.cjxjie.top.modules.app.entity.UserEntity;
 import com.cjxjie.top.modules.app.entity.UserInvitationEntity;
 import com.cjxjie.top.modules.app.service.UserInvitationService;
 import com.cjxjie.top.modules.app.vo.UserInvitationVo;
+import com.cjxjie.top.modules.es.docment.ESUserAndPost;
 import com.cjxjie.top.modules.sys.form.PostForm;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -124,6 +125,7 @@ public class InvitationServiceImpl extends ServiceImpl<InvitationDao, Invitation
                 .eq("invitation_id", id));
         return invitation;
     }
+
 
     public UserInvitationVo getUser(Long invitationId) {
         // 根据 帖子ID 搜索 用户

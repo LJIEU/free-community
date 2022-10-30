@@ -12,6 +12,7 @@ import com.cjxjie.top.modules.app.utils.JwtTokenUtil;
 import com.cjxjie.top.modules.app.vo.CommentAndUserVo;
 import com.cjxjie.top.modules.app.vo.RegisterVo;
 import com.cjxjie.top.modules.app.vo.UserInfoVo;
+import com.cjxjie.top.modules.es.docment.ESUserAndPost;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -264,6 +265,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
         log.warn("注册用户信息:" + user);
         this.save(user);
+    }
+
+    @Override
+    public List<ESUserAndPost> getImportAllList() {
+        return baseMapper.getImportAllList();
     }
 
     /**

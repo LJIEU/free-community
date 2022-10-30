@@ -7,6 +7,7 @@ import com.cjxjie.top.modules.app.entity.CommentEntity;
 import com.cjxjie.top.modules.app.entity.UserEntity;
 import com.cjxjie.top.modules.app.vo.CommentAndUserVo;
 import com.cjxjie.top.modules.app.vo.RegisterVo;
+import com.cjxjie.top.modules.es.docment.ESUserAndPost;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -34,5 +35,7 @@ public interface UserService extends IService<UserEntity> {
     BufferedImage getVerifiCode(String phone);
 
     void Register(RegisterVo registerVo);
+
+    List<ESUserAndPost> getImportAllList();
 }
 

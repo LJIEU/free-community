@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.cjxjie.top.common.utils.PageUtils;
 import com.cjxjie.top.modules.app.entity.InvitationEntity;
 import com.cjxjie.top.modules.app.vo.UserInvitationVo;
+import com.cjxjie.top.modules.es.docment.ESUserAndPost;
 import com.cjxjie.top.modules.sys.form.PostForm;
 
 import java.util.List;
@@ -29,5 +30,6 @@ public interface InvitationService extends IService<InvitationEntity> {
     List<String> getTopicList();
 
     InvitationEntity getPostById(Long id);
+
 }
 

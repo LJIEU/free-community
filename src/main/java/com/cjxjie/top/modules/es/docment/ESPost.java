@@ -3,6 +3,9 @@ package com.cjxjie.top.modules.es.docment;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
@@ -15,12 +18,14 @@ import java.util.List;
  * @version 1.0
  * @since 2022/10/29 12:00
  */
-@Data
+@Getter
+@Setter
+@ToString
 public class ESPost implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+//    private Long id;
 
     /**
      * 帖子ID
@@ -39,10 +44,6 @@ public class ESPost implements Serializable {
     // 中文分词
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String content;
-
-
-    @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String documentTranslate;
 
     /**
      * 浏览量

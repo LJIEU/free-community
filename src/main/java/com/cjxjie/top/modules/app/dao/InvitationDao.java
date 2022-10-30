@@ -3,6 +3,7 @@ package com.cjxjie.top.modules.app.dao;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.cjxjie.top.modules.app.entity.InvitationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cjxjie.top.modules.es.docment.ESUserAndPost;
 import net.sf.jsqlparser.parser.feature.Feature;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,5 @@ import java.util.List;
 @Mapper
 public interface InvitationDao extends BaseMapper<InvitationEntity> {
     List<String> getTopicList();
+
 }

@@ -2,6 +2,9 @@ package com.cjxjie.top.es;
 
 import com.alibaba.fastjson.JSON;
 import com.cjxjie.top.modules.app.entity.UserEntity;
+import com.cjxjie.top.modules.app.service.InvitationService;
+import com.cjxjie.top.modules.app.service.UserService;
+import com.cjxjie.top.modules.es.docment.ESUserAndPost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author 刘杰
@@ -34,9 +38,21 @@ public class ElasticsearchTest {
 //    private ElasticsearchConfig elasticsearchConfig;
     private RestHighLevelClient client;
 
+    @Autowired
+    private UserService userService;
+
+    @Test
+    public void test(){
+        List<ESUserAndPost> importAllList = userService.getImportAllList();
+        importAllList.forEach(v->{
+            System.out.println(v);
+        });
+    }
+
     @Test
     public void selectDoc() throws IOException {
-        GetRequest getRequest = new GetRequest("new_index");
+//        GetRequest getRequest = new GetRequest("new_index");
+        GetRequest getRequest = new GetRequest("user_post");
         getRequest.id("1");
         // 发送请求 [GET http://localhost:9200/new_index/_doc/1]
         GetResponse documentFields = client.get(getRequest, RequestOptions.DEFAULT);

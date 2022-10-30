@@ -47,6 +47,8 @@ public class ShiroConfig {
         filterMap.put("/app/api/**", "anon"); // 和app相关的全部放行
         filterMap.put("/sys/login", "anon"); // 登录
 
+        filterMap.put("/es/**", "anon"); // ES
+
         filterMap.put("/swagger/**", "anon");// swagger2
         filterMap.put("/v2/api-docs", "anon");
         filterMap.put("/swagger-ui.html", "anon");

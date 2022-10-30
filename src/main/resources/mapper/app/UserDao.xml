@@ -3,7 +3,7 @@
 
 <mapper namespace="com.cjxjie.top.modules.app.dao.UserDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.cjxjie.top.modules.app.entity.UserEntity" id="userMap">
         <result property="userId" column="user_id"/>
         <result property="username" column="username"/>
@@ -21,5 +21,33 @@
         <result property="createTime" column="create_time"/>
     </resultMap>
 
+
+    <resultMap id="userAndPostMap" type="com.cjxjie.top.modules.es.docment.ESUserAndPost">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="avatar" column="avatar"/>
+        <result property="profession" column="profession"/>
+        <collection property="posts" ofType="com.cjxjie.top.modules.es.docment.ESPost" resultMap="com.cjxjie.top.modules.app.dao.InvitationDao.invitationMap" />
+    </resultMap>
+    <select id="getImportAllList" resultType="com.cjxjie.top.modules.es.docment.ESUserAndPost" resultMap="userAndPostMap">
+        select ui.id,
+               u.user_id,
+               u.username,
+               u.avatar,
+               u.profession,
+               posts.invitation_id,
+               posts.title,
+               posts.content,
+               posts.pageviews,
+               posts.comments,
+               posts.likes,
+               posts.topic,
+               posts.sort,
+               posts.address,
+               posts.cover
+        from user_invitation as ui
+                 join user as u on u.user_id = ui.user_id
+                 join invitation as posts on posts.invitation_id = ui.invitation_id;
+    </select>
 
 </mapper>
