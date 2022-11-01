@@ -25,7 +25,8 @@ public class Swagger2Config {
                 .groupName("系统用户信息")
                 .apiInfo(adminApiInfo())
                 .select()
-                .paths(PathSelectors.regex("/sys/user/*/.*"))
+//                .paths(PathSelectors.regex("/sys/user/*/.*"))
+                .paths(PathSelectors.regex("/es/*/.*"))
                 .build();
     }
 

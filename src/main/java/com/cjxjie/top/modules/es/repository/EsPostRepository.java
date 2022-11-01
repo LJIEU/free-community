@@ -21,5 +21,5 @@ public interface EsPostRepository extends ElasticsearchRepository<ESUserAndPost,
      * @param page     分页
     findUserNameOrPostTitleOrKeywords
      */
-//    Page<ESUserAndPost> findESUserAndPostOrUsername(String userName, String title, String keywords, Pageable page);
+    Page<ESUserAndPost> findESUserAndPostByUsername(String userName, String title, String keywords, Pageable page);
 }

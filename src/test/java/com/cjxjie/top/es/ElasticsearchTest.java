@@ -18,9 +18,12 @@ import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,11 +45,54 @@ public class ElasticsearchTest {
     private UserService userService;
 
     @Test
-    public void test(){
+    public void test() {
         List<ESUserAndPost> importAllList = userService.getImportAllList();
-        importAllList.forEach(v->{
+        importAllList.forEach(v -> {
             System.out.println(v);
         });
+    }
+
+/*
+# nested 用于嵌套字段查询
+GET user_post/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "username": "user"
+          }
+        },
+        {
+          "nested": {
+            "path": "posts",
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "match": {
+                      "posts.content": "wsfw"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+     */
+
+    @Test
+    public void search() {
+        String keyword = "2";
+
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        boolQuery.must(QueryBuilders.termQuery("", keyword));
     }
 
     @Test
