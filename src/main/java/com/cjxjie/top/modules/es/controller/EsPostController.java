@@ -1,7 +1,7 @@
 package com.cjxjie.top.modules.es.controller;
 
 import com.cjxjie.top.common.utils.R;
-import com.cjxjie.top.modules.es.docment.ESUserAndPost;
+import com.cjxjie.top.modules.es.docment.ESPost;
 import com.cjxjie.top.modules.es.service.EsPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,8 +41,8 @@ public class EsPostController {
     public R search(@RequestParam(required = false) String keyword,
                     @RequestParam(required = false, defaultValue = "0") Integer pageNum,
                     @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
-        Page<ESUserAndPost> esProductPage = esPostService.search(keyword, pageNum, pageSize);
-        List<ESUserAndPost> esProducts = esProductPage.getContent();
+        Page<ESPost> esProductPage = esPostService.search(keyword, pageNum, pageSize);
+        List<ESPost> esProducts = esProductPage.getContent();
         esProducts.forEach(System.out::println);
         return R.ok().put("esProducts", esProducts);
     }

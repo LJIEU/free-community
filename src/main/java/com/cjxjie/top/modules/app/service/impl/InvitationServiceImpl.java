@@ -7,7 +7,7 @@ import com.cjxjie.top.modules.app.entity.UserEntity;
 import com.cjxjie.top.modules.app.entity.UserInvitationEntity;
 import com.cjxjie.top.modules.app.service.UserInvitationService;
 import com.cjxjie.top.modules.app.vo.UserInvitationVo;
-import com.cjxjie.top.modules.es.docment.ESUserAndPost;
+import com.cjxjie.top.modules.es.docment.ESPost;
 import com.cjxjie.top.modules.sys.form.PostForm;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -76,7 +77,7 @@ public class InvitationServiceImpl extends ServiceImpl<InvitationDao, Invitation
 
     @Override
     public List<InvitationEntity> getPostList() {
-        return  baseMapper.selectList(new QueryWrapper<InvitationEntity>().eq("state", 1));
+        return baseMapper.selectList(new QueryWrapper<InvitationEntity>().eq("state", 1));
     }
 
     @Override
@@ -124,6 +125,12 @@ public class InvitationServiceImpl extends ServiceImpl<InvitationDao, Invitation
         InvitationEntity invitation = baseMapper.selectOne(new QueryWrapper<InvitationEntity>()
                 .eq("invitation_id", id));
         return invitation;
+    }
+
+    @Override
+    public List<ESPost> getImportAllList() {
+
+        return baseMapper.getImportAllList();
     }
 
 

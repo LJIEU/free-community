@@ -22,6 +22,7 @@
     </resultMap>
 
 
+<!--
     <resultMap id="userAndPostMap" type="com.cjxjie.top.modules.es.docment.ESUserAndPost">
         <result property="userId" column="user_id"/>
         <result property="username" column="username"/>
@@ -44,10 +45,12 @@
                posts.topic,
                posts.sort,
                posts.address,
-               posts.cover
+               posts.cover,
+               posts.create_time
         from user_invitation as ui
                  join user as u on u.user_id = ui.user_id
                  join invitation as posts on posts.invitation_id = ui.invitation_id;
     </select>
+-->
 
 </mapper>

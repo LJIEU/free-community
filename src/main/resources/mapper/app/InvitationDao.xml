@@ -25,12 +25,25 @@
         from invitation;
     </select>
 
-
+    <select id="getImportAllList" resultType="com.cjxjie.top.modules.es.docment.ESPost">
+        select i.invitation_id,
+               i.title,
+               i.content,
+               i.pageviews,
+               i.comments,
+               i.likes,
+               i.topic,
+               i.sort,
+               i.address,
+               i.cover,
+               i.create_time
+        from invitation as i;
+    </select>
 
 
     <!--flushInterval==> 刷新间隔 单位毫秒-->
-<!--    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true">-->
-<!--    </cache>-->
+    <!--    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true">-->
+    <!--    </cache>-->
 
 
 </mapper>

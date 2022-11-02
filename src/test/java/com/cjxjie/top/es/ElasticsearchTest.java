@@ -1,32 +1,45 @@
 package com.cjxjie.top.es;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.cjxjie.top.modules.app.entity.UserEntity;
 import com.cjxjie.top.modules.app.service.InvitationService;
 import com.cjxjie.top.modules.app.service.UserService;
-import com.cjxjie.top.modules.es.docment.ESUserAndPost;
+import com.cjxjie.top.modules.es.docment.ESPost;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.common.document.DocumentField;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.core.TimeValue;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
 import java.io.IOException;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * @author 刘杰
@@ -42,57 +55,61 @@ public class ElasticsearchTest {
     private RestHighLevelClient client;
 
     @Autowired
-    private UserService userService;
+    private InvitationService invitationService;
 
     @Test
     public void test() {
-        List<ESUserAndPost> importAllList = userService.getImportAllList();
+        List<ESPost> importAllList = invitationService.getImportAllList();
         importAllList.forEach(v -> {
             System.out.println(v);
         });
     }
 
-/*
-# nested 用于嵌套字段查询
-GET user_post/_search
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "match": {
-            "username": "user"
-          }
-        },
-        {
-          "nested": {
-            "path": "posts",
-            "query": {
-              "bool": {
-                "must": [
-                  {
-                    "match": {
-                      "posts.content": "wsfw"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }
-  }
-}
-     */
 
     @Test
-    public void search() {
+    public void search() throws IOException, ParseException {
+        // 用户名模糊搜索2  or 职业模糊搜索2  or 帖子标题模糊搜索2  or  帖子内容模糊搜索2
         String keyword = "2";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-DD");
+        Date date = simpleDateFormat.parse("20222-10-01");
 
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        boolQuery.must(QueryBuilders.termQuery("", keyword));
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        BoolQueryBuilder builder = QueryBuilders.boolQuery();
+
+        // 查询所有
+        builder.must(QueryBuilders.matchAllQuery());
+
+        // 根据建立查询信息 进行分页查询  第0页 每页2个user数据  根据userId 进行升序排序
+        searchSourceBuilder.query(builder).sort("userId", SortOrder.ASC)
+                .sort("posts.invitationId", SortOrder.ASC)
+                .from(0)
+                .size(5);
+        SearchRequest searchRequest = new SearchRequest("user_post").source(searchSourceBuilder);
+        SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        SearchHit[] hits = search.getHits().getHits();
+        List<ESPost> list = new Vector<>();
+        if (hits.length == 0) {
+            System.out.println("没有找到数据!");
+            return;
+        }
+        for (SearchHit hit : hits) {
+            // 获取查询结果的源数据
+            String sourceAsString = hit.getSourceAsString();
+            System.out.println(sourceAsString);
+
+            // 将其转为 JSON 数据
+            JSON parse = (JSON) JSON.parse(sourceAsString);
+            System.out.println(parse);
+
+            // 再将 JSON 数据 转 对象
+            ESPost esUserAndPost = JSONObject.toJavaObject(parse, ESPost.class);
+
+            // 放入集合中
+            if (esUserAndPost != null)
+                list.add(esUserAndPost);
+        }
+        list.forEach(System.out::println);
     }
 
     @Test

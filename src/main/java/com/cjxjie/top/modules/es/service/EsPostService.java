@@ -1,6 +1,6 @@
 package com.cjxjie.top.modules.es.service;
 
-import com.cjxjie.top.modules.es.docment.ESUserAndPost;
+import com.cjxjie.top.modules.es.docment.ESPost;
 import org.springframework.data.domain.Page;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.data.domain.Page;
 public interface EsPostService {
     int importAll();
 
-    Page<ESUserAndPost> search(String keyword, Integer pageNum, Integer pageSize);
+    Page<ESPost> search(String keyword, Integer pageNum, Integer pageSize);
 
 }
